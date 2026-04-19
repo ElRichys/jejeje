@@ -1,0 +1,189 @@
+:root {
+    --bg-color: #f7f3ec;
+    --text-color: #7a1b1b;
+    --btn-bg: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    background-image: url('https://www.transparenttextures.com/patterns/crumpled-paper.png');
+}
+
+h1, h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Contenedor principal que reemplaza a la antigua ".screen" */
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    box-sizing: border-box;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+button {
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin: 10px;
+    border: 2px solid var(--text-color);
+    border-radius: 20px;
+    background-color: var(--btn-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover {
+    background-color: var(--text-color);
+    color: white;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.menu-btn {
+    font-size: 3rem;
+    padding: 30px 10px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.content-box {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.letter-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    text-align: left;
+    line-height: 1.5;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- AGREGAR AL FINAL DE style.css --- */
+.screen {
+    display: none;
+}
+.screen.active {
+    display: block;
+}
+.question-img, .icon-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px solid var(--text-color);
+    margin-bottom: 10px;
+}
+.icon-img {
+    border: none;
+}
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.options-container button {
+    width: 90%;
+    max-width: 300px;
+    margin: 5px;
+}
+input[type="text"] {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.2rem;
+    padding: 12px 15px;
+    width: 80%;
+    max-width: 300px;
+    border: 2px solid var(--text-color);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color);
+    margin-bottom: 5px;
+    text-align: center;
+    transition: all 0.3s;
+}
+input[type="text"]:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.error-msg {
+    color: #d32f2f;
+    font-size: 0.9rem;
+    font-weight: bold;
+    height: 20px;
+    margin-bottom: 15px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* --- ESTILOS PARA EL JUEGO --- */
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 350px;
+}
+
+.hole {
+    width: 100px;
+    height: 100px;
+    background: rgba(122, 27, 27, 0.1);
+    border: 2px dashed var(--text-color);
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.target {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    bottom: -100%; /* Escondido al inicio */
+    left: 10%;
+    transition: bottom 0.2s ease-out;
+    pointer-events: none; /* Para que el click lo reciba el hole */
+}
+
+.hole.up .target {
+    bottom: 10%; /* Sube cuando el agujero tiene la clase 'up' */
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}

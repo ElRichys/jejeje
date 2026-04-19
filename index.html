@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" alt="Oso lindo" width="80">
+        <h1>Hello My Darling!</h1>
+        <h3>¡Feliz aniversario!</h3>
+        <p>¿Quieres ver tu regalo?</p>
+        <div>
+            <button onclick="window.location.href='quiz.html'">SHIIIIII</button>
+            <button id="btn-no" style="position: relative;">NO, CAES MAL PATAS NEGRAS</button>
+        </div>
+    </div>
+
+    
+    <script>
+        const btnNo = document.getElementById('btn-no');
+        
+        btnNo.addEventListener('mouseover', moveButton);
+        btnNo.addEventListener('touchstart', moveButton);
+
+        function moveButton(e) {
+            e.preventDefault(); 
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const randomX = Math.floor(Math.random() * (windowWidth - btnNo.offsetWidth));
+            const randomY = Math.floor(Math.random() * (windowHeight - btnNo.offsetHeight));
+
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+        }
+    </script>
+</body>
+</html>

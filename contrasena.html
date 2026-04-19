@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación final</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="screen-1" class="screen active">
+            <img src="../img/contra1.jpeg" alt="Cara atrevida" class="icon-img">
+            <h2>Ya, pero antes de verlo di que eres mía</h2>
+            <input type="text" id="input-1" placeholder="Escribe aquí..." autocomplete="off">
+            <div id="error-1" class="error-msg">Eso no oieeeee "soy tuya" dahhh</div>
+            <br>
+            <button onclick="checkFirst()">ENVIAR</button>
+        </div>
+
+        <div id="screen-2" class="screen">
+            <img src="../img/contra2.jpeg" alt="Cara dudosa" class="icon-img">
+            <h2>¿Soy tuya qué?</h2>
+            <input type="text" id="input-2" placeholder="Escribe aquí..." autocomplete="off">
+            <div id="error-2" class="error-msg">Te falta algo más "soy tuya anto..."</div>
+            <br>
+            <button onclick="checkSecond()">ENVIAR</button>
+        </div>
+
+        <div id="screen-success" class="screen">
+            <img src="../img/contrayei.jpeg" alt="Corazones" class="icon-img">
+            <h2>Shi lo sé, sabía que lo aceptarías mi vida ❤️</h2>
+            <p>Ahora sí, todo tuyo.</p>
+            <button onclick="window.location.href='juego.html'">ENTRAR</button>
+        </div>
+    </div>
+
+
+    
+    <script>
+        function showScreen(screenId) {
+            const screens = document.querySelectorAll('.screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function cleanText(text) {
+            return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+        }
+
+        function triggerError(inputId, errorId) {
+            const errorMsg = document.getElementById(errorId);
+            const inputElement = document.getElementById(inputId);
+            
+            errorMsg.style.opacity = '1';
+            inputElement.style.transform = 'translateX(-10px)';
+            setTimeout(() => inputElement.style.transform = 'translateX(10px)', 100);
+            setTimeout(() => inputElement.style.transform = 'translateX(-10px)', 200);
+            setTimeout(() => inputElement.style.transform = 'translateX(0)', 300);
+        }
+
+        function checkFirst() {
+            const input = document.getElementById('input-1').value;
+            if (cleanText(input) === 'soy tuya') {
+                document.getElementById('error-1').style.opacity = '0';
+                showScreen('screen-2');
+            } else {
+                triggerError('input-1', 'error-1');
+            }
+        }
+
+        function checkSecond() {
+            const input = document.getElementById('input-2').value;
+            const cleaned = cleanText(input);
+            if (cleaned === 'soy tuya antonio' || cleaned === 'soy tuya, antonio') {
+                document.getElementById('error-2').style.opacity = '0';
+                showScreen('screen-success');
+            } else {
+                triggerError('input-2', 'error-2');
+            }
+        }
+    </script>
+</body>
+</html>

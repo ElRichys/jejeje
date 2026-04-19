@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atrapa mi Amor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>¡Si! ¿¡Soy espeso y que!?</h2>
+        <p>¡Tendrás que juegar para conseguirlo Wuajajaja! Tienes que tocar las fotos para hacer puntos, como el jueguito de los topos, esta izi!</p>
+        
+        <p>Misión: Haz <strong>19 puntos</strong> en 25 segundos para desbloquear tu carta especial. ¡Tú puedes!</p>
+        
+        <div class="stats">
+            <div>Puntos: <span id="score">0</span></div>
+            <div>Tiempo: <span id="time">25</span>s</div>
+        </div>
+
+        <div class="game-container">
+            <div class="hole" onclick="bonk(this)"><img src="../img/a2.jpg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a6.jpg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a5.jpg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a4.jpg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a7.jpeg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a8.jpeg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a9.jpeg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a10.jpeg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a11.jpeg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a12.jpeg" class="target"></div>
+            <div class="hole" onclick="bonk(this)"><img src="../img/a13.jpeg" class="target"></div>
+            
+        </div>
+
+        <button id="start-btn" onclick="startGame()">¡EMPEZAR EL RETO!</button>
+        <button onclick="window.location.href='menu.html'">VOLVER</button>
+    </div>
+
+    
+
+    <script>
+        const holes = document.querySelectorAll('.hole');
+        const scoreBoard = document.querySelector('#score');
+        const timeBoard = document.querySelector('#time');
+        let lastHole;
+        let timeUp = false;
+        let score = 0;
+        let countdown;
+
+        function randomTime(min, max) {
+            return Math.round(Math.random() * (max - min) + min);
+        }
+
+        function randomHole(holes) {
+            const idx = Math.floor(Math.random() * holes.length);
+            const hole = holes[idx];
+            if (hole === lastHole) return randomHole(holes);
+            lastHole = hole;
+            return hole;
+        }
+
+        function peep() {
+            // Bajé un poquitito el tiempo máximo (de 1200 a 1000) para que salgan más rápido y sea posible hacer los 30 puntos
+            const time = randomTime(500, 1000); 
+            const hole = randomHole(holes);
+            hole.classList.add('up');
+            setTimeout(() => {
+                hole.classList.remove('up');
+                if (!timeUp) peep();
+            }, time);
+        }
+
+        function startGame() {
+            scoreBoard.textContent = 0;
+            timeBoard.textContent = 25;
+            score = 0;
+            timeUp = false;
+            document.getElementById('start-btn').style.display = 'none';
+            
+            peep();
+            
+            let timeLeft = 25;
+            countdown = setInterval(() => {
+                timeLeft--;
+                timeBoard.textContent = timeLeft;
+                
+                // AQUÍ ESTÁ LA NUEVA LÓGICA DE VICTORIA O DERROTA
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    timeUp = true;
+                    
+                    if (score >= 19) {
+                        // Si gana, le damos el pase
+                        alert('¡ESO! Hiciste ' + score + ' puntos. Bien mi vida, ahora sí puedes leer tu carta ❤️');
+                        window.location.href = 'letter.html';
+                    } else {
+                        // Si pierde, calculamos cuánto le faltó
+                        let faltantes = 19 - score;
+                        alert('¡Uy! Hiciste ' + score + ' puntos. Que noob! Te faltaron ' + faltantes + ' puntitos para pasar... ¡Tú puedes, inténtalo de nuevo!');
+                        // Volvemos a mostrar el botón para que reinicie
+                        document.getElementById('start-btn').style.display = 'inline-block';
+                        document.getElementById('start-btn').textContent = 'REINTENTAR';
+                    }
+                }
+            }, 1000);
+        }
+
+        function bonk(e) {
+            if (!e.classList.contains('up')) return;
+            score++;
+            e.classList.remove('up');
+            scoreBoard.textContent = score;
+        }
+    </script>
+</body>
+</html>
