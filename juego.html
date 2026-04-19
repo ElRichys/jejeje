@@ -12,7 +12,7 @@
         <h2>¡Si! ¿¡Soy espeso y que!?</h2>
         <p>¡Tendrás que juegar para conseguirlo Wuajajaja! Tienes que tocar las fotos para hacer puntos, como el jueguito de los topos, esta izi!</p>
         
-        <p>Misión: Haz <strong>19 puntos</strong> en 25 segundos para desbloquear tu carta especial. ¡Tú puedes!</p>
+        <p>Misión: Haz <strong>19 puntos</strong> en 30 segundos para desbloquear tu carta especial. ¡Tú puedes!</p>
         
         <div class="stats">
             <div>Puntos: <span id="score">0</span></div>
@@ -74,14 +74,14 @@
 
         function startGame() {
             scoreBoard.textContent = 0;
-            timeBoard.textContent = 25;
+            timeBoard.textContent = 30;
             score = 0;
             timeUp = false;
             document.getElementById('start-btn').style.display = 'none';
             
             peep();
             
-            let timeLeft = 25;
+            let timeLeft = 30;
             countdown = setInterval(() => {
                 timeLeft--;
                 timeBoard.textContent = timeLeft;
